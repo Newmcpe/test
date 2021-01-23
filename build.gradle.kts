@@ -8,12 +8,12 @@ version = "1.0"
 repositories {
     mavenCentral()
     maven("https://dl.bintray.com/kotlin/exposed")
-    maven("https://papermc.io/repo/repository/maven-public/")
+    maven("http://repo.dmulloy2.net/content/groups/public/")
 }
 
 dependencies {
     val exposedVersion: String by project
-    val paperVersion: String by project
+    val spigotVersion: String by project
     val postgresqlVersion: String by project
 
     implementation(kotlin("stdlib"))
@@ -24,5 +24,7 @@ dependencies {
     api("org.jetbrains.exposed", "exposed-jdbc", exposedVersion)
 
     api("org.postgresql", "postgresql", postgresqlVersion)
-    api("com.destroystokyo.paper","paper-api", paperVersion)
+    api("org.spigotmc","spigot", spigotVersion)
+
+    api("com.comphenix.protocol", "ProtocolLib", "4.5.0")
 }

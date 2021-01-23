@@ -1,16 +1,20 @@
 package ru.newmcpe.test
 
+import com.comphenix.protocol.ProtocolLibrary
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import ru.newmcpe.test.dao.DiedOcelotsTable
+import ru.newmcpe.test.listener.CustomNamesListener
 import ru.newmcpe.test.listener.MobListener
 
 class TestPlugin : JavaPlugin() {
+
     override fun onEnable() {
         Bukkit.getPluginManager().registerEvents(MobListener(), this)
+        ProtocolLibrary.getProtocolManager().addPacketListener(CustomNamesListener(this))
 
         connectDatabase()
     }

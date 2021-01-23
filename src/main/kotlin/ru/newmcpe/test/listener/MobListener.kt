@@ -9,6 +9,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.inventory.ItemStack
 import ru.newmcpe.test.dao.DiedOcelotsTable
+import ru.newmcpe.test.entity.EntityOcelot
+import ru.newmcpe.test.util.NMSUtil
 import ru.newmcpe.test.util.StringUtil
 
 class MobListener : Listener {
@@ -22,7 +24,7 @@ class MobListener : Listener {
                 return
 
             if (entity.type == EntityType.ZOMBIE) {
-                val ocelot = entity.world.spawnEntity(entity.location, EntityType.OCELOT)
+                val ocelot = NMSUtil.spawnNMSMob(EntityOcelot::class, entity.location)
                 ocelot.customName = StringUtil.getRandomString()
             }
         }
@@ -43,6 +45,7 @@ class MobListener : Listener {
                 event.drops.clear()
                 event.drops.add(ItemStack(Material.LEATHER))
 
+                entity.world.dropItem(entity.location, ItemStack(Material.GLOWSTONE))
                 DiedOcelotsTable.add(damager.name, entity.name)
             }
         }
